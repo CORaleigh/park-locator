@@ -1,0 +1,37 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 400px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+app-map.selected {
+  position: absolute;
+  height: 50%;
+  top: 64px;
+  right: 0;
+  width: 100%;
+}
+
+app-park-info {
+  height: 0%;
+}
+
+app-park-info.selected {
+  position: absolute;
+  height: 50%;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}

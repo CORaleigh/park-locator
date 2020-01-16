@@ -1,0 +1,16 @@
+<mat-card class="example-card" *ngIf="selectedPark">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{selectedPark.attributes.NAME}}</mat-card-title>
+      <mat-card-subtitle>{{selectedPark.attributes.ADDRESS}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="getImage()" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+  <!-- <div #directions></div> -->

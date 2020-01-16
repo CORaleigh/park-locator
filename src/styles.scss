@@ -1,1 +1,59 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+@import 'custom-theme.scss';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$park-locator-primary: mat-palette($darkgreen);
+$park-locator-accent: mat-palette($twilightblue, 500, 900, A100);
+
+// The warn palette is optional (defaults to red).
+$park-locator-warn: mat-palette($mediumgreen);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$park-locator-theme: mat-light-theme($park-locator-primary, $park-locator-accent, $park-locator-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($park-locator-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+  
+  .mat-drawer-inner-container {
+    overflow: hidden !important;
+  }
+
+  .mat-tab-body-content {
+    height: 100%;
+    overflow: auto;
+}
+
+.mat-tab-body-wrapper {
+    height: 100%!important;
+}
+
+.mat-tab-group {
+    height: calc(100% - 64px)!important;
+    width: 100%;
+    overflow: hidden;
+}
+
+.esri-view {
+    height: calc(100% - 64px);
+    width: 100%;
+  }
