@@ -123,8 +123,13 @@
               "devServerTarget": "park-locator:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "park-locator"
 }

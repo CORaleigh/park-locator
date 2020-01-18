@@ -2,20 +2,13 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+      [opened]="(isHandset$  | async ) === false">
+    <mat-toolbar><img src="https://raleighnc.gov/themes/custom/cityofraleigh/logo.svg"></mat-toolbar>
     <mat-tab-group>
-      <mat-tab label="Parks"> <app-park-list *ngIf="view && parkLayer" [view]="view" [parkLayer]="parkLayer" [where]="where" (parkSelected)="parkSelected($event)" (chipClicked)="chipClicked($event)"></app-park-list> </mat-tab>
+      <mat-tab label="Parks"> <app-park-list *ngIf="view && parkLayer" [view]="view" [parkLayer]="parkLayer" [where]="where" (parkSelected)="parkSelected($event, drawer)" (chipClicked)="chipClicked($event)"></app-park-list> </mat-tab>
       <mat-tab label="Filter">     <app-amenity-filter *ngIf="view && parkLayer" [toggleField]="toggleField" [view]="view" [parkLayer]="parkLayer" (parksFiltered)="parksFiltered($event)"></app-amenity-filter>
       </mat-tab>
     </mat-tab-group>    
-    <!---->
-   
-    <!-- <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list> -->
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -27,9 +20,43 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>park-locator</span>
+      <span>Park Locator</span>
     </mat-toolbar>
-    <app-map [ngClass]="selectedPark ? 'selected' : ''" (viewLoaded)="viewLoaded($event)" (parkLayerLoaded)="parkLayerLoaded($event)"></app-map>
-    <app-park-info *ngIf="selectedPark && view" [ngClass]="selectedPark ? 'selected' : ''" [selectedPark]="selectedPark" [view]="view"></app-park-info>
+    <!-- <div class="content"> -->
+
+
+      <app-map [ngClass]="{'selected' : selectedPark, 'full': parkInfoFull}" (viewLoaded)="viewLoaded($event)" (parkLayerLoaded)="parkLayerLoaded($event)"></app-map>
+      
+      <div class="park-info-tabs" [ngClass]="{'selected' : selectedPark, 'full': parkInfoFull}">
+        <div *ngIf="selectedPark" class="close-icon">
+          <button *ngIf="!parkInfoFull" (click)="parkInfoFull = !parkInfoFull" mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>expand_less</mat-icon>
+          </button>       
+          
+          <button  *ngIf="parkInfoFull" (click)="parkInfoFull = !parkInfoFull"  mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>expand_more</mat-icon>
+          </button>             
+          <button  (click)="clearPark()"  mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>close</mat-icon>
+          </button>  
+        </div>
+          
+        <mat-tab-group >
+          <mat-tab label="Info">
+            
+            <app-park-info *ngIf="selectedPark && view"  [selectedPark]="selectedPark" [view]="view"></app-park-info>
+  
+          </mat-tab>
+          <mat-tab *ngIf="classes.length" label="Classes">
+            <app-classes [classes]="classes"></app-classes>
+          </mat-tab>
+  
+        </mat-tab-group> 
+    
+      </div>
+     
+      
+    <!-- </div> -->
+
   </mat-sidenav-content>
 </mat-sidenav-container>

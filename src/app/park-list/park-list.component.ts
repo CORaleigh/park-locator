@@ -87,7 +87,22 @@ export class ParkListComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     try {
-
+      if (this.route.routeConfig) {
+      
+        if(this.route.snapshot.children.length) {
+    
+              if (this.route.snapshot.children[0].params.park) {
+                const where = "lower(NAME) = '" + this.route.snapshot.children[0].params.park.replace(/_/g,' ') + "'";
+                this.parkLayer.queryFeatures({where: where, outFields:['*'], returnGeometry: true}).then((fs:esri.FeatureSet) => {
+                  this.view.goTo({target: fs.features[0], zoom: 16});    
+                  this.parkSelected.emit(fs.features[0]);
+                });
+    
+              }
+    
+        }
+      
+      }     
       this.view.watch('stationary', (extent) => {
         this.filterParks();
       });

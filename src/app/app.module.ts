@@ -20,9 +20,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
-
+import {MatGridListModule} from "@angular/material/grid-list"
 import { ParkNamePipe } from './park-name.pipe';
 import { ParkInfoComponent } from './park-info/park-info.component';
+import { ClassesComponent } from './classes/classes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { ParkInfoComponent } from './park-info/park-info.component';
     ParkListComponent,
     AmenityFilterComponent,
     ParkNamePipe,
-    ParkInfoComponent
+    ParkInfoComponent,
+    ClassesComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,7 @@ import { ParkInfoComponent } from './park-info/park-info.component';
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -38,12 +38,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow: hidden !important;
   }
 
-  .mat-tab-body-content {
+.mat-tab-body-content {
     height: 100%;
     overflow: auto;
 }
 
-.mat-tab-body-wrapper {
+ .mat-tab-body-wrapper {
     height: 100%!important;
 }
 
@@ -52,8 +52,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100%;
     overflow: hidden;
 }
-
+mat-toolbar {
+  z-index: 100000 !important;
+}
 .esri-view {
     height: calc(100% - 64px);
     width: 100%;
   }
+
+
+  @media only screen and (max-width: 500px) {
+
+    .esri-view {
+      height: calc(100% - 56px) !important;
+    }
+    .mat-tab-group {
+      height: calc(100% - 56px)!important;
+
+  }    
+  }
+
+  .mat-tab-header-pagination.mat-tab-header-pagination-disabled {
+    display: none !important;
+}

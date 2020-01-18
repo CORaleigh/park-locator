@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import esri = __esri;
 @Component({
@@ -6,7 +6,7 @@ import esri = __esri;
   templateUrl: './park-info.component.html',
   styleUrls: ['./park-info.component.scss']
 })
-export class ParkInfoComponent implements OnInit {
+export class ParkInfoComponent implements OnInit, OnChanges {
   @Input('selectedPark') selectedPark:esri.Graphic;
   constructor() { }
   getImage() {
@@ -14,7 +14,6 @@ export class ParkInfoComponent implements OnInit {
   }
   @ViewChild("directions", { static: true }) private directionsEl: ElementRef;
   @Input('view') view:esri.MapView = null;
-  
   async initializeMap() {
     try {
       // Load the modules for the ArcGIS API for JavaScript
@@ -76,6 +75,12 @@ export class ParkInfoComponent implements OnInit {
   }
   ngOnInit() {
    // this.initializeMap();
+  }
+
+  ngOnChanges(change:SimpleChanges) {
+    if (change.selectedPark) {
+
+    }
   }
 
 }

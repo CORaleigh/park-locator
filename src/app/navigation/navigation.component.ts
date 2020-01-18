@@ -13,10 +13,14 @@ import esri = __esri;
 })
 export class NavigationComponent implements OnInit  {
   toggleField:esri.Field = null;
+  classes:esri.Graphic[] = [];
+  parkInfoFull:boolean = false;
   ngOnInit() {
- 
+    
   }
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints
+    .Small, Breakpoints.XSmall, Breakpoints.TabletPortrait
+  ])
     .pipe(
       map(result => result.matches),
       shareReplay()
@@ -28,9 +32,6 @@ export class NavigationComponent implements OnInit  {
     if (this.route.routeConfig) {
       
       if(this.route.snapshot.children.length) {
-        if (this.route.routeConfig.children[0].path === 'activities/:activities') {
-          
-            
   
             if (this.route.snapshot.children[0].params.activities) {
               let where:string = "1=1";
@@ -45,8 +46,7 @@ export class NavigationComponent implements OnInit  {
               this.where = where;
   
             }
-
-        }      
+  
       }
     
     }     
@@ -72,13 +72,38 @@ export class NavigationComponent implements OnInit  {
   }
 
   selectedPark:esri.Graphic = null;
-  parkSelected(park:esri.Graphic) {
+  parkSelected(park:esri.Graphic, drawer) {
+    this.isHandset$.subscribe((isHandset) => {
+      if (isHandset.valueOf()) {
+        drawer.close();
+      }
+    });
+      
+    
     this.selectedPark = park;
+    this.classes = [];
+    this.router.navigate(['park', this.selectedPark.attributes.NAME.toString().toLowerCase().replace(/ /g, '_')]);
+    (this.selectedPark.layer as esri.FeatureLayer).queryRelatedFeatures({relationshipId:0,objectIds:[this.selectedPark.attributes.OBJECTID], outFields:['*']}).then((result:any) => {
+      if (result[this.selectedPark.attributes.OBJECTID] != undefined) {
+        this.classes = result[this.selectedPark.attributes.OBJECTID].features;
+      } else {
+        this.classes = [];
 
+      }
+    });
+    if (this.isHandset$) {
+
+    }
   }
 
   chipClicked(chip:esri.Field) {
     this.toggleField = chip;
+  }
+
+  clearPark() {
+    this.selectedPark = null;
+    this.router.navigate(['']);
+
   }
 
 }

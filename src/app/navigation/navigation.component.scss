@@ -5,6 +5,27 @@
 .sidenav {
   width: 400px;
 }
+mat-toolbar img {
+  height: 50px;
+  margin: 1em 0;
+}
+
+@media only screen and (max-width: 500px) {
+  .sidenav {
+    width: 85%;
+  }
+  app-map.selected {
+    height: 30% !important;
+  }
+  .park-info-tabs.selected {
+    height: 70% !important;
+  }
+  app-map {
+    top: 56px !important;
+  }
+
+  
+}
 
 .sidenav .mat-toolbar {
   background: inherit;
@@ -16,22 +37,64 @@
   z-index: 1;
 }
 
+.content {
+  // overflow:hidden;
+ // height: 100%;
+}
+
+
+// app-map {
+
+// }
+app-map {
+  top: 64px;
+}
+app-map.full {
+
+  height: 0% !important;
+  right: 0;
+  width: 100%;
+  position: absolute;
+}
 app-map.selected {
   position: absolute;
   height: 50%;
-  top: 64px;
   right: 0;
   width: 100%;
 }
 
-app-park-info {
+// app-park-info {
+//   height: 0%;
+//   overflow: auto;
+// }
+
+.park-info-tabs {
   height: 0%;
+  overflow: auto;
+  z-index: 10000;
 }
 
-app-park-info.selected {
+
+.park-info-tabs.full {
+  bottom: 0;
+  top: 64px;
+  right: 0;
+  height: 100% !important;
+  right: 0;
+  width: 100%;
+  position: absolute;
+}
+.park-info-tabs.selected {
   position: absolute;
   height: 50%;
   bottom: 0;
   right: 0;
   width: 100%;
+}
+
+.close-icon {
+  position: absolute;
+  right: 1em;
+  top: 0.5em;
+  z-index: 1000;
 }

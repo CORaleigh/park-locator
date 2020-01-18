@@ -6,7 +6,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 
 const routes: Routes = [
   {path: '', component: NavigationComponent, children:[
-    { path: 'activities/:activities', component: NavigationComponent}
+    { path: 'activities/:activities', component: NavigationComponent},
+    { path: 'park/:park', component: NavigationComponent}
   ]},
 
 ];

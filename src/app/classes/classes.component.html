@@ -1,0 +1,30 @@
+
+
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-subtitle>{{classList.length ? 'Courses':'Sections'}}</mat-card-subtitle>
+        <button *ngIf="classList.length" mat-raised-button color="primary" (click)="classList = []">Back</button>
+      </mat-card-header>    
+    <mat-card-content>
+        <mat-grid-list *ngIf="!classList.length" [cols]="columns" rowHeight="4:1">
+            <mat-grid-tile *ngFor="let section of sections" (click)="sectionSelected(section)">{{section}}</mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list *ngIf="classList.length" [cols]="columns" rowHeight="2:1">
+            <mat-grid-tile *ngFor="let cl of classList">
+                
+
+                <mat-card class="class-card">  
+                    <mat-card-content>
+                        <p>{{cl.attributes.COURSE}}</p>
+                        <p>{{cl.attributes.ACTIVITY}}</p>
+                        <p>{{cl.attributes.START_DATE | date : 'MMM d, y, h:mm a' }}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <a color="primary" mat-button href="https://reclink.raleighnc.gov/Activities/ActivitiesCourseDetails.asp?aid={{cl.attributes.ACTIVITY_ID}}+&cid={{cl.attributes.COURSE_ID}}" target="_blank">REGISTER</a>
+                      </mat-card-actions>
+                  </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>          
+    </mat-card-content>
+
+  </mat-card>

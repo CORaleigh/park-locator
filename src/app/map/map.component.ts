@@ -58,6 +58,7 @@ export class MapComponent implements OnInit {
       
       view.whenLayerView(parkLayer).then((layerView:esri.LayerView) => {
         this.parkLayerLoaded.emit(parkLayer);
+
       });      
     });
   }
