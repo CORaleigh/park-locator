@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { loadModules } from 'esri-loader';
+import { Symbols } from '../symbols';
+
 import esri = __esri;
 @Component({
   selector: 'app-park-info',
@@ -8,9 +10,12 @@ import esri = __esri;
 })
 export class ParkInfoComponent implements OnInit, OnChanges {
   @Input('selectedPark') selectedPark:esri.Graphic;
+  activities:string[] = [];
+  symbols:Symbols = new Symbols();
+
   constructor() { }
   getImage() {
-    return "https://maps.raleighnc.gov/parklocator/images/photos/"+ this.selectedPark.attributes.NAME.toLowerCase().replace(/\s/g,'').replace(/\./g,'') +".jpg";
+    return "https://maps.raleighnc.gov/parklocator/images/photos/"+ this.selectedPark.attributes.NAME.toLowerCase().replace(/\s/g,'').replace(/\./g,'').replace(/&/,'') +".jpg";
   }
   @ViewChild("directions", { static: true }) private directionsEl: ElementRef;
   @Input('view') view:esri.MapView = null;
@@ -79,7 +84,17 @@ export class ParkInfoComponent implements OnInit, OnChanges {
 
   ngOnChanges(change:SimpleChanges) {
     if (change.selectedPark) {
+      this.activities = [];
 
+      for (let key in this.selectedPark.attributes) {
+        if (this.selectedPark.attributes[key] === 'Yes') {
+          this.activities.push(this.symbols.symbols.filter(symbol => {
+            return symbol.name === key;
+          })[0]);
+          
+        }
+      }
+      
     }
   }
 

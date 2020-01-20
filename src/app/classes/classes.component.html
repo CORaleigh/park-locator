@@ -1,15 +1,17 @@
 
+        <button *ngIf="classList.length" mat-button color="primary" (click)="classList = []"><mat-icon>arrow_back_ios</mat-icon>Categories</button>
 
-<mat-card class="example-card">
-    <mat-card-header>
-        <mat-card-subtitle>{{classList.length ? 'Courses':'Sections'}}</mat-card-subtitle>
-        <button *ngIf="classList.length" mat-raised-button color="primary" (click)="classList = []">Back</button>
-      </mat-card-header>    
-    <mat-card-content>
-        <mat-grid-list *ngIf="!classList.length" [cols]="columns" rowHeight="4:1">
-            <mat-grid-tile *ngFor="let section of sections" (click)="sectionSelected(section)">{{section}}</mat-grid-tile>
+        <mat-grid-list *ngIf="!classList.length" [cols]="columns" rowHeight="50px">
+            <mat-grid-tile *ngFor="let section of sections" (click)="sectionSelected(section)">
+              <mat-card class="class-card">  
+                <mat-card-content>
+                  <p>{{section}}</p>
+                </mat-card-content>
+    
+              </mat-card>
+              </mat-grid-tile>
           </mat-grid-list>
-          <mat-grid-list *ngIf="classList.length" [cols]="columns" rowHeight="2:1">
+          <mat-grid-list *ngIf="classList.length" [cols]="columns" rowHeight="220px">
             <mat-grid-tile *ngFor="let cl of classList">
                 
 
@@ -25,6 +27,3 @@
                   </mat-card>
             </mat-grid-tile>
           </mat-grid-list>          
-    </mat-card-content>
-
-  </mat-card>

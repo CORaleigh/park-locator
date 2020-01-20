@@ -15,10 +15,10 @@ mat-toolbar img {
     width: 85%;
   }
   app-map.selected {
-    height: 30% !important;
+    height: 40% !important;
   }
   .park-info-tabs.selected {
-    height: 70% !important;
+    height: 60% !important;
   }
   app-map {
     top: 56px !important;
@@ -48,8 +48,10 @@ mat-toolbar img {
 // }
 app-map {
   top: 64px;
+  visibility: visible;
 }
 app-map.full {
+  visibility: hidden;
 
   height: 0% !important;
   right: 0;
@@ -70,7 +72,9 @@ app-map.selected {
 
 .park-info-tabs {
   height: 0%;
-  overflow: auto;
+  overflow: hidden;
+  visibility: hidden;
+
   z-index: 10000;
 }
 
@@ -83,6 +87,8 @@ app-map.selected {
   right: 0;
   width: 100%;
   position: absolute;
+  visibility: visible;
+
 }
 .park-info-tabs.selected {
   position: absolute;
@@ -90,6 +96,8 @@ app-map.selected {
   bottom: 0;
   right: 0;
   width: 100%;
+  visibility: visible;
+
 }
 
 .close-icon {
@@ -98,3 +106,6 @@ app-map.selected {
   top: 0.5em;
   z-index: 1000;
 }
+
+
+

@@ -12,6 +12,8 @@ export class ParkListComponent implements OnInit, OnChanges {
   @Input('view') view:esri.MapView;
   @Input('parkLayer') parkLayer:esri.FeatureLayer;
   @Input('where') where:string;
+  @Input('location') location:esri.Graphic;
+
   @Output() parkSelected = new EventEmitter<esri.Graphic>();
   @Output() chipClicked = new EventEmitter<esri.Field>();
 
@@ -20,16 +22,7 @@ export class ParkListComponent implements OnInit, OnChanges {
   chipFields:esri.Field[] = [];
   constructor(private route: ActivatedRoute, private router:Router) { }
   removeChip(event, field:esri.Field) {
-    //@ts-ignore
-    field.checked = false;
     this.chipFields.splice(this.chipFields.indexOf(field),1);
-    let matches = this.parkLayer.fields.filter(f => {
-      return f.name === field.name;
-    });
-    if (matches.length) {
-      //@ts-ignore
-      matches[0].checked = false;
-    }
     this.chipClicked.emit(field);
   }
   filterParks() {
@@ -41,27 +34,22 @@ export class ParkListComponent implements OnInit, OnChanges {
       }
     });
 
-    // this.chipFields = this.parkLayer.fields.filter((field) => {
-    //   return this.where.includes(' ' + field.name + ' ');
-    // });
     
     this.parkLayer.queryFeatures({where: this.where, outFields:['*'], returnGeometry: true}).then((fs:esri.FeatureSet) => {
 
       loadModules(["esri/geometry/geometryEngine"]).then(([geometryEngine]) => {
         fs.features.forEach(feature => {
 
-          feature.attributes.distance = geometryEngine.distance(feature.geometry, this.view.extent.center, 'miles');
+          feature.attributes.distance = geometryEngine.distance(feature.geometry, (this.location) ? this.location.geometry : this.view.extent.center, 'miles');
         });
         fs.features.sort((a:esri.Graphic,b:esri.Graphic) => {
           return a.attributes.distance - b.attributes.distance;
         });
         this.features = fs.features;
-   
-      });
-      setTimeout(() => {
         document.getElementsByClassName('park-list')[0].setAttribute("style", "height:" +((document.getElementsByClassName('park-list-body')[0] as HTMLElement).offsetHeight - (document.getElementsByClassName('filter')[0] as HTMLElement).offsetHeight)+'px');
 
-       })     
+      });
+   
     });
 
 
@@ -84,6 +72,7 @@ export class ParkListComponent implements OnInit, OnChanges {
       
       this.filterParks();
     }
+
   }
   ngOnInit() {
     try {

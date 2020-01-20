@@ -4,8 +4,8 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$  | async ) === false">
     <mat-toolbar><img src="https://raleighnc.gov/themes/custom/cityofraleigh/logo.svg"></mat-toolbar>
-    <mat-tab-group>
-      <mat-tab label="Parks"> <app-park-list *ngIf="view && parkLayer" [view]="view" [parkLayer]="parkLayer" [where]="where" (parkSelected)="parkSelected($event, drawer)" (chipClicked)="chipClicked($event)"></app-park-list> </mat-tab>
+    <mat-tab-group (selectedTabChange)="tabChanged($event)">
+      <mat-tab label="Parks"> <app-park-list *ngIf="view && parkLayer" [view]="view" [parkLayer]="parkLayer" [where]="where" [location]="location" (parkSelected)="parkSelected($event, drawer)" (chipClicked)="chipClicked($event)"></app-park-list> </mat-tab>
       <mat-tab label="Filter">     <app-amenity-filter *ngIf="view && parkLayer" [toggleField]="toggleField" [view]="view" [parkLayer]="parkLayer" (parksFiltered)="parksFiltered($event)"></app-amenity-filter>
       </mat-tab>
     </mat-tab-group>    
@@ -16,8 +16,7 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Park Locator</span>
@@ -25,7 +24,7 @@
     <!-- <div class="content"> -->
 
 
-      <app-map [ngClass]="{'selected' : selectedPark, 'full': parkInfoFull}" (viewLoaded)="viewLoaded($event)" (parkLayerLoaded)="parkLayerLoaded($event)"></app-map>
+      <app-map [ngClass]="{'selected' : selectedPark, 'full': parkInfoFull}" (viewLoaded)="viewLoaded($event)" (parkLayerLoaded)="parkLayerLoaded($event)" (locationSet)="locationSet($event)"></app-map>
       
       <div class="park-info-tabs" [ngClass]="{'selected' : selectedPark, 'full': parkInfoFull}">
         <div *ngIf="selectedPark" class="close-icon">

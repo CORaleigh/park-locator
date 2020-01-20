@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
-import {MatGridListModule} from "@angular/material/grid-list"
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { ParkNamePipe } from './park-name.pipe';
 import { ParkInfoComponent } from './park-info/park-info.component';
 import { ClassesComponent } from './classes/classes.component';
@@ -50,7 +52,9 @@ import { ClassesComponent } from './classes/classes.component';
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
-    MatChipsModule,MatGridListModule
+    MatChipsModule,MatGridListModule,
+    HttpClientModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

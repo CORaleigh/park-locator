@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { loadModules } from 'esri-loader';
 import esri = __esri;
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Symbols } from '../symbols'
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-amenity-filter',
@@ -17,6 +17,7 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
   @Output() parksFiltered = new EventEmitter<string>();
   fields:esri.Field[] = [];
   selected:string[] = []
+  symbols:Symbols = new Symbols();
   constructor(private route: ActivatedRoute, private router:Router) { }
 
   toggle(event:MatSlideToggleChange, field:esri.Field) {
@@ -42,20 +43,16 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
     });
     this.parksFiltered.emit(where);
     this.router.navigate(['activities', this.selected.toString().replace(/,/g, '-')]);
+    //@ts-ignore
+    field.checked = !field.checked;
   }
   ngOnChanges(change:SimpleChanges) {
     if (change.toggleField.currentValue) {
       
-      //@ts-ignore
-      this.toggleField.checked = false;
+
       let event:MatSlideToggleChange = new MatSlideToggleChange(null, false);
-      let matches = this.parkLayer.fields.filter(field => {
-        return field.name === this.toggleField.name;
-      });
-      if (matches.length) {
-        //@ts-ignore
-        matches[0].checked = false;
-      }
+
+
       this.toggle(event,this.toggleField );
 
     }
@@ -65,13 +62,20 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
  
   ngOnInit() {
     try {
-        this.fields = this.parkLayer.fields.filter((field:esri.Field) => {
+        let fields:any[] = this.parkLayer.fields.filter((field:esri.Field) => {
           return field.domain;
         });
-        this.fields.forEach(field => {
+        fields.forEach(field => {
           //@ts-ignore
           field.checked = false;
+          
+          //@ts-ignore
+          field.symbol = this.symbols.symbols.filter(symbol => {
+            return symbol.name === field.name;
+          })[0];
         });
+        
+        this.fields = fields;
         
         if(this.route.snapshot.children.length) {
       

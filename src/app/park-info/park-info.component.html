@@ -1,15 +1,29 @@
+<div>
 <mat-card class="example-card" *ngIf="selectedPark">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
+      <img mat-card-image [src]="getImage()" alt="Photo of a Shiba Inu">
+      <div>
       <mat-card-title>{{selectedPark.attributes.NAME}}</mat-card-title>
       <mat-card-subtitle>{{selectedPark.attributes.ADDRESS}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image [src]="getImage()" alt="Photo of a Shiba Inu">
-    <mat-card-content>
+      <mat-card-subtitle>{{selectedPark.attributes.PHONE}}</mat-card-subtitle>
 
+      </div>
+
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list *ngIf="activities.length" cols="6" rowHeight="3:2">
+        <mat-grid-tile *ngFor="let activity of activities">
+
+              <mat-icon *ngIf="activity.source === 'material'" [matTooltip]="activity.alias" aria-label="icon">{{activity.symbol}}</mat-icon>
+              <mat-icon *ngIf="activity.source === 'nps'" [matTooltip]="activity.alias" aria-label="icon" [svgIcon]="activity.name"></mat-icon>
+
+          </mat-grid-tile>
+      </mat-grid-list>      
     </mat-card-content>
     <mat-card-actions>
       <button mat-button>LIKE</button>
       <button mat-button>SHARE</button>
     </mat-card-actions>
   </mat-card>
+
+</div>

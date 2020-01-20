@@ -6,6 +6,7 @@ import { loadModules } from 'esri-loader';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import esri = __esri;
+import { MatTabChangeEvent } from '@angular/material/tabs';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -73,11 +74,15 @@ export class NavigationComponent implements OnInit  {
 
   selectedPark:esri.Graphic = null;
   parkSelected(park:esri.Graphic, drawer) {
-    this.isHandset$.subscribe((isHandset) => {
-      if (isHandset.valueOf()) {
+    this.breakpointObserver.observe([
+      Breakpoints.Handset,Breakpoints
+      .Small, Breakpoints.XSmall, Breakpoints.TabletPortrait  
+    ]).subscribe(result => {
+      if (result.matches) {
         drawer.close();
-      }
+      } 
     });
+
       
     
     this.selectedPark = park;
@@ -104,6 +109,17 @@ export class NavigationComponent implements OnInit  {
     this.selectedPark = null;
     this.router.navigate(['']);
 
+  }
+
+  tabChanged(event:MatTabChangeEvent) {
+    if (event.index === 0) {
+      document.getElementsByClassName('park-list')[0].setAttribute("style", "height:" +((document.getElementsByClassName('park-list-body')[0] as HTMLElement).offsetHeight - (document.getElementsByClassName('filter')[0] as HTMLElement).offsetHeight)+'px');
+    }
+  }
+
+  location:esri.Graphic = null;
+  locationSet(location:esri.Graphic) {
+    this.location = location;
   }
 
 }

@@ -38,19 +38,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow: hidden !important;
   }
 
-.mat-tab-body-content {
+ .mat-tab-body-content {
     height: 100%;
     overflow: auto;
 }
 
- .mat-tab-body-wrapper {
+.mat-tab-body-wrapper {
     height: 100%!important;
 }
 
-.mat-tab-group {
+.sidenav .mat-tab-group {
     height: calc(100% - 64px)!important;
     width: 100%;
-    overflow: hidden;
+}
+
+.mat-tab-group {
+  overflow: hidden;
+
 }
 mat-toolbar {
   z-index: 100000 !important;
@@ -66,12 +70,30 @@ mat-toolbar {
     .esri-view {
       height: calc(100% - 56px) !important;
     }
-    .mat-tab-group {
+    .sidenav .mat-tab-group {
       height: calc(100% - 56px)!important;
 
   }    
+  .park-info-tabs .mat-tab-body-wrapper {
+    height: calc(100% - 56px)!important;
+
+  }
   }
 
   .mat-tab-header-pagination.mat-tab-header-pagination-disabled {
     display: none !important;
+}
+
+.park-info-tabs .mat-tab-body-wrapper {
+
+  position: absolute;
+  top:64px;
+  right: 0;
+  left: 0;
+  height: calc(100% - 64px) !important;
+}
+
+app-classes .mat-card-header-text {
+  width: 100% !important;
+  text-align: center !important;
 }

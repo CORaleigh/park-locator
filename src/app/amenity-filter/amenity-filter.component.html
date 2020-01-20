@@ -1,4 +1,8 @@
 <mat-list>
-    <mat-list-item *ngFor="let field of fields"><mat-slide-toggle [checked]="field.checked" (change)="toggle($event,field)">{{field.alias}}</mat-slide-toggle>
+    <mat-list-item *ngFor="let field of fields"><mat-slide-toggle [checked]="field.checked" (change)="toggle($event,field)">
+        <mat-icon *ngIf="field.symbol.source === 'material'" aria-label="icon">{{field.symbol.symbol}}</mat-icon>
+        <mat-icon *ngIf="field.symbol.source === 'nps'" aria-label="icon" [svgIcon]="field.symbol.name"></mat-icon>
+
+        {{field.alias}}</mat-slide-toggle>
     </mat-list-item>
 </mat-list>
