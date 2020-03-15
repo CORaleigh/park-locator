@@ -1,14 +1,19 @@
 
         <button *ngIf="classList.length" mat-button color="primary" (click)="classList = []"><mat-icon>arrow_back_ios</mat-icon>Categories</button>
 
-        <mat-grid-list *ngIf="!classList.length" [cols]="columns" rowHeight="50px">
-            <mat-grid-tile *ngFor="let section of sections" (click)="sectionSelected(section)">
-              <mat-card class="class-card">  
+        <mat-grid-list  *ngIf="!classList.length" [cols]="columns" rowHeight="250px">
+            <mat-grid-tile style="height: 100%;" *ngFor="let section of sections" (click)="sectionSelected(section.name)">
+              <mat-card class="section-card"> 
+
                 <mat-card-content>
-                  <p>{{section}}</p>
+                  <mat-icon class="section-icon" *ngIf="section.icon.length && section.material">{{section.icon}}</mat-icon>
+                  <mat-icon class="section-icon" *ngIf="section.icon.length && !section.material" [svgIcon]="section.icon"></mat-icon>
+
                 </mat-card-content>
-    
-              </mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{section.name}}</mat-card-title>
+                </mat-card-header>                 
+                </mat-card>
               </mat-grid-tile>
           </mat-grid-list>
           <mat-grid-list *ngIf="classList.length" [cols]="columns" rowHeight="220px">
@@ -18,7 +23,7 @@
                 <mat-card class="class-card">  
                     <mat-card-content>
                         <p>{{cl.attributes.COURSE}}</p>
-                        <p>{{cl.attributes.ACTIVITY}}</p>
+                        <!-- <p>{{cl.attributes.ACTIVITY}}</p> -->
                         <p>{{cl.attributes.START_DATE | date : 'MMM d, y, h:mm a' }}</p>
                     </mat-card-content>
                     <mat-card-actions>

@@ -29,8 +29,8 @@ $park-locator-theme: mat-light-theme($park-locator-primary, $park-locator-accent
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: hidden; }
 
 
   
@@ -96,4 +96,22 @@ mat-toolbar {
 app-classes .mat-card-header-text {
   width: 100% !important;
   text-align: center !important;
+}
+
+.mat-card {
+  border-radius: 0 !important;
+}
+
+.example-card .mat-card-header-text {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.esri-directions__stops,.esri-directions__travel-modes-select, .esri-directions__departure-time,
+.esri-directions__departure-time-select, .esri-directions__section-splitter, .esri-directions__maneuver-section-header{
+    display: none !important;
+}
+
+.esri-directions {
+  max-height: 400px !important;
 }

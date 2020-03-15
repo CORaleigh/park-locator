@@ -14,12 +14,23 @@ export class AppComponent {
     const symbols = new Symbols().symbols.filter(symbol => {
       return symbol.source === 'nps';
     });
+    this.matIconRegistry.addSvgIcon(
+      'adventure',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/technical-rock-climb-white-22.svg')
+    );    
+    this.matIconRegistry.addSvgIcon(
+      'aquatic',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/swimming-white-22.svg')
+    );      
+  
     symbols.forEach(symbol => {
       this.matIconRegistry.addSvgIcon(
         symbol.name,
         this.domSanitizer.bypassSecurityTrustResourceUrl(symbol.symbol)
       );
     })
+
+
 
   }
 }

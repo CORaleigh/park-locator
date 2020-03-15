@@ -18,10 +18,11 @@ export class MapComponent implements OnInit {
     try {
       if (!this.view) {
       // Load the modules for the ArcGIS API for JavaScript
-      const [WebMap, MapView, Search, Graphic, Point] = await loadModules([
+      const [WebMap, MapView, Search, Locate, Graphic, Point] = await loadModules([
         "esri/WebMap",
         "esri/views/MapView",
         "esri/widgets/Search",
+        "esri/widgets/Locate",        
         "esri/Graphic",
         "esri/geometry/Point"
       ]);
@@ -50,8 +51,17 @@ export class MapComponent implements OnInit {
       });
       view.ui.move('zoom', 'bottom-left')
       view.ui.add(search, 'top-left');
+      const locate:esri.Locate = new Locate({view:view});
+      view.ui.add(locate, 'bottom-left');
+
 
       await view.when().then(() => {
+        locate.locate().then(() => {
+          this.locationSet.emit(locate.graphic);
+          view.zoom = 10;
+        });
+
+        
         // if (navigator.geolocation) {
         //   navigator.geolocation.getCurrentPosition((position)=> {
             

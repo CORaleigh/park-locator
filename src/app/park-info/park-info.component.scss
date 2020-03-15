@@ -1,32 +1,88 @@
 .example-card {
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
     height: auto;
     margin:0 1em;
-    
+    float:none;
   }
 
-  @media only screen and (max-width: 500px) {
+#overview  {
+    width: calc(100% - 400px) !important;
+    margin: 0.5em 2em;
+    height: auto;
+}
+
+
+
+
+  @media only screen and (max-width: 700px) {
+    .park-info-container {
+        display: contents !important;
+    }
+    #overview  {
+        width: calc(100% - 4em) !important;
+        margin: 2em;
+        height: 300px;
+    }
     .example-card {
 
-    max-width: 350px !important;
-    }
-    
+        float:none;
+      }
   }
 
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-height: 900px) {
     .example-card {
 
     width: 300px !important;
     }
     .example-card img {
-        max-width: 200px !important;
-    }
+        width: 250px !important;
+          height: 100%;
+          margin: 0 0 1em 0!important;
+    
+      //   margin-left: -30px;
+      //   margin-right: 16px;
+    }    
+    // .example-card img {
+    //     max-width: 200px !important;
+    // }
   }
   
   .example-card img {
-      max-width: 250px;
+      width: 300px;
         height: 100%;
-      margin-left: -30px;
-      margin-right: 16px;
+        margin: 0 0 1em 0!important;
+
+    //   margin-left: -30px;
+    //   margin-right: 16px;
   }
+
+  .example-card .mat-card-content {
+      text-align: center;
+      margin:0!important;
+  }
+
+
+
+
+.park-info-container {
+    display: flex;
+}
+
+.esri-directions {
+    margin: 2em;
+}
+
+.esri-directions.show  {
+   height: 400px;
+   visibility: visible;
+}
+
+.esri-directions  {
+    height: 0;
+    visibility: hidden;
+ }
+
+ .activities {
+     margin-bottom: 1em;
+ }

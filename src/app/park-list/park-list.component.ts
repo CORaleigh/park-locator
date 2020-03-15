@@ -29,7 +29,7 @@ export class ParkListComponent implements OnInit, OnChanges {
     this.chipFields = [];
     this.parkLayer.fields.forEach(field => {
       //@ts-ignore
-      if (this.where.includes(field.name)) {
+      if (this.where.toUpperCase().includes(' '+field.name+' ')) {
         this.chipFields.push(field);
       }
     });

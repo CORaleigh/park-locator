@@ -8,3 +8,27 @@
       margin:1em;
   }
 
+
+
+  .section-icon {
+      height: 100px;
+      width: 100px;
+      font-size: 100px;
+      align-items: center;
+      text-align: center;;
+  }
+
+  .section-card mat-card-content {
+    text-align: center !important;
+
+  }
+
+
+  .section-card {
+    background-color: #4C8C2B !important;
+    color: white !important;
+    width: 100%;
+    margin:1em;
+    border-radius: 0;
+    
+  }

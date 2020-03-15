@@ -22,18 +22,18 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
 
   toggle(event:MatSlideToggleChange, field:esri.Field) {
     
-    if (event.checked && !this.selected.includes(field.name)) {
+    if (event.checked && !this.selected.includes(field.name.toUpperCase())) {
 
       this.selected.push(field.name);
     } else {
-      this.selected.splice(this.selected.indexOf(field.name),1);
+      this.selected.splice(this.selected.indexOf(field.name.toUpperCase()),1);
     }
     let where:string = "1=1";
     if (this.selected.length) {
       if (this.selected.length === 1) {
-        where = this.selected[0] + " = 'Yes'";
+        where = " "+this.selected[0] + " = 'Yes'";
       } else {
-        where = this.selected.toString().replace(/,/g, " = 'Yes' OR ")+ " = 'Yes'";
+        where = " "+this.selected.toString().replace(/,/g, " = 'Yes' OR ")+ " = 'Yes'";
       }
     } 
     
@@ -42,7 +42,7 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
       this.view.goTo(fs.features);
     });
     this.parksFiltered.emit(where);
-    this.router.navigate(['activities', this.selected.toString().replace(/,/g, '-')]);
+    this.router.navigate(['activities', this.selected.toString().toLowerCase().replace(/,/g, '-')]);
     //@ts-ignore
     field.checked = !field.checked;
   }
@@ -74,8 +74,13 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
             return symbol.name === field.name;
           })[0];
         });
-        
+        fields.sort((a,b) => {
+          if(a.name < b.name) { return -1; }
+          if(a.name > b.name) { return 1; }
+          return 0;
+        });
         this.fields = fields;
+
         
         if(this.route.snapshot.children.length) {
       
@@ -84,9 +89,10 @@ export class AmenityFilterComponent implements OnInit, OnChanges {
                 if (this.route.snapshot.children[0].params.activities.split('-').length) {
                   this.route.snapshot.children[0].params.activities.split('-').forEach(activity => {
                     let fields = this.fields.filter(field => {
-                      return  this.route.snapshot.children[0].params.activities.split('-').includes(field.name);
+                      return  this.route.snapshot.children[0].params.activities.toUpperCase().split('-').includes(field.name);
                     });
-                    this.selected = this.route.snapshot.children[0].params.activities.split('-');
+                    debugger
+                    this.selected = this.route.snapshot.children[0].params.activities.toUpperCase().split('-');
                     fields.forEach(field => {
                       //@ts-ignore
                       field.checked = true;
